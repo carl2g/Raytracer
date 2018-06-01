@@ -1,2 +1,2 @@
-# Raytracer-
+# Raytracer
 A basic raytracer
