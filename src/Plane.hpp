@@ -5,9 +5,9 @@
 
 class Plane : public Obj {
 public:
-	Plane(const v3<double> &pos, const Color &c = {255, 255, 255, 255}) : Obj(pos, c) {}
+	Plane(const Vec3<double> &pos, const Color &c = {255, 255, 255, 255}) : Obj(pos, c) {}
 	~Plane() = default;
-	double intersect(const v3<double> &origin, const v3<double> &vdir);
+	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir);
 private:
 };
 

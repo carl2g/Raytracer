@@ -2,7 +2,7 @@
 * @Author: carl de gentile
 * @Date:   2018-06-01 20:27:05
 * @Last Modified by:   carl de gentile
-* @Last Modified time: 2018-06-03 16:21:36
+* @Last Modified time: 2018-06-21 12:32:35
 */
 
 #include <thread>
@@ -15,9 +15,9 @@ int main(int ac, char **av)
 {
 	SDLWin win("My window", {1200, 800});
 	std::thread th1 (&SDLWin::launchWin, &win);
-	Camera cam({0, 0, 0}, {1200, 800});
+	Camera cam({-50, 0, 0}, {1200, 800});
 	Plane pl({0, 0, -5});
-	Sphere sp({-50 ,0 ,0}, 10, {255, 0, 0, 255});
+	Sphere sp({0 ,0 ,0}, 20, {255, 0, 0, 255});
 	for (int i = 0; i < 1200 * 800; ++i) {
 		if (sp.intersect(cam.getPos(), cam.getVecAtPixel(i)) >= 0)
 			win.setBufferPixel(i, sp.getColor());

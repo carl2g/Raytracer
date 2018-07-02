@@ -1,31 +1,31 @@
-CC			=	g++ -g3 -O3
+CC		=	g++ -g3 -O3
 
-RM			=	rm -rvf
+RM		=	rm -rvf
 
 NAME		=	raytracer
 
 SRCS		=	src/main.cpp 		\
-				src/SDLWin.cpp		\
-				src/Camera.cpp 		\
-				src/Sphere.cpp 		\
-				src/Plane.cpp
+			src/SDLWin.cpp		\
+			src/Camera.cpp 		\
+			src/Sphere.cpp 		\
+			src/Plane.cpp
 
-CFLAGS 		= -lSDL2 -lpthread -lm
+CFLAGS 		= 	-lSDL2 -lpthread -lm
 
 OBJS		=	$(SRCS:.cpp=.o)
 
-all:		$(NAME)
+all:			$(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):		$(OBJS)
 			$(CC) $(OBJS) -o $(NAME) $(CFLAGS)
 
 clean:
 			$(RM) $(OBJS)
 
-fclean:		clean
+fclean:			clean
 			$(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:			all clean fclean re
 

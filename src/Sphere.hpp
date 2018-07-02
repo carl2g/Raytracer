@@ -5,9 +5,9 @@
 
 class Sphere : public Obj {
 public:
-	Sphere(const v3<double> &pos, int radius, const Color &c) : Obj(pos, c), _rad(radius) {}
+	Sphere(const Vec3<double> &pos, int radius, const Color &c) : Obj(pos, c), _rad(radius) {}
 	~Sphere() = default;
-	double intersect(const v3<double> &origin, const v3<double> &vdir);
+	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir);
 private:
 	int 	_rad;
 };
