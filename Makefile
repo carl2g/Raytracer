@@ -8,7 +8,8 @@ SRCS		=	src/main.cpp 		\
 			src/SDLWin.cpp		\
 			src/Camera.cpp 		\
 			src/Sphere.cpp 		\
-			src/Plane.cpp
+			src/Plane.cpp 		\
+			src/Triangle.cpp	\
 
 CFLAGS 		= 	-lSDL2 -lpthread -lm
 

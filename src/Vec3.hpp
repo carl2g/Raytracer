@@ -8,9 +8,11 @@ public:
 	Vec3(T1 x, T1 y, T1 z) : _x(x), _y(y), _z(z) {}
 	inline double norm() const { return sqrt((_x * _x) + (_y * _y) + (_z * _z)); }
 	inline Vec3<T1> operator-(const Vec3<T1> &op) const { return Vec3<T1>(_x - op._x, _y - op._y, _z - op._z); }
+	inline Vec3<T1> operator-(double t) const { return Vec3<T1>(_x - t, _y - t, _z - t); }
 	inline Vec3<T1> operator+(const Vec3<T1> &op) const { return Vec3<T1>(_x + op._x, _y + op._y, _z + op._z); }
+	inline Vec3<T1> operator*(double t) const { return Vec3<T1>(_x * t, _y * t, _z * t); }
 	inline double dot(const Vec3<T1> &op) const { return  (_x * op._x + _y * op._y + _z * op._z); }
-	inline Vec3<T1> cross(const Vec3<T1> &op) const { return Vec3<T1>(_y * op._z - _z * op.y , _z * op._x - _x * op.a, _x * op._y - _y * op._x); }
+	inline Vec3<T1> cross(const Vec3<T1> &op) const { return Vec3<T1>(_y * op._z - _z * op._y, _z * op._x - _x * op._z, _x * op._y - _y * op._x); }
 	inline Vec3<T1> normalized() const { return Vec3<T1>(_x / this->norm(), _y / this->norm(), _z / this->norm()); }
 	~Vec3() = default;
 	T1 	_x;

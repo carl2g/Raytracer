@@ -14,7 +14,7 @@ Camera::Camera(const Vec3<double> &pos, PairInt screenSize) : Obj(pos, {0, 0, 0,
 
 	for (int z = -axis_y; z < axis_y; ++z) {
 		for (int y = -axis_x; y < axis_x; ++y) {
-			_vision.push_back(std::make_unique<Vec3<double>>(800, -y, -z));
+			_vision.push_back(std::make_unique<Vec3<double>>(800, y, -z));
 		}
 	}
 }
