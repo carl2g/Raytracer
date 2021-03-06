@@ -10,16 +10,24 @@
 
 double Sphere::intersect(const Vec3<double> &origin, const Vec3<double> &rd)
 {
-	Vec3<double> dirSph = _pos - origin;
-	Vec3<double> Nrd = rd.normalized();
-	double t = (dirSph._x * Nrd._x) + (dirSph._y * Nrd._y) + (dirSph._z * Nrd._z);
-	Vec3<double> p = {origin._x + Nrd._x * t, origin._y + Nrd._y * t, origin._z + Nrd._z * t};
-	double y = (Vec3<double>(_pos - p)).getLen();
-	if (y <= _rad) {
-		double x = sqrt((_rad * _rad) - (y * y));
-		double t1 = t - x;
-		double t2 = t + x;
-		return (t1 <= t2 ? t1 : t2);
-	}
-	return (-1);
+	double a = powl(rd._x, 2) + powl(rd._y, 2) + powl(rd._z, 2);
+	double b = -2.0 * rd._x * this->_pos._x + 2.0 * rd._x * origin._x
+	- 2.0 * rd._y * this->_pos._y + 2.0 * rd._y * origin._y
+	- 2.0 * rd._z * this->_pos._z + 2.0 * rd._z * origin._z;
+	double c = powl(this->_pos._x, 2) - 2 * this->_pos._x * origin._x + powl(origin._x, 2)
+	+ powl(this->_pos._y, 2) - 2 * this->_pos._y * origin._y + powl(origin._y, 2)
+	+ powl(this->_pos._z, 2) - 2 * this->_pos._z * origin._z + powl(origin._z, 2) 
+	- powl(_rad, 2);
+		
+	double delt = (powl(b, 2) - (4.0 * a * c));
+	
+	if (delt < 0)
+		return (-1);
+	else if (delt == 0)
+		return (-b / (2 * a));
+
+	double x1 = (-b - sqrtl(delt)) / (2 * a);
+	double x2 = (-b + sqrtl(delt)) / (2 * a);
+
+	return ((x1 <= x2 ? x1 : x2));
 }

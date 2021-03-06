@@ -12,13 +12,15 @@ SDLWin::SDLWin(const std::string &winName, const std::pair<int, int> &winSize)
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		SDL_Quit();
-		throw "OK";
+		throw "Quiting screen";
 	}
-	 _window = SDL_CreateWindow(winName.c_str(),
+	 _window = SDL_CreateWindow(
+	 	winName.c_str(),
 	 	SDL_WINDOWPOS_CENTERED,
 	 	SDL_WINDOWPOS_CENTERED,
 	 	winSize.first, winSize.second,
-	 	SDL_WINDOW_SHOWN);
+	 	SDL_WINDOW_SHOWN
+	 );
 	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
@@ -38,8 +40,8 @@ void SDLWin::setBufferPixel(int pos, const Color &c)
 void SDLWin::updateWin()
 {
 	_mtx.lock();
-        SDL_RenderPresent(_renderer);
-        _mtx.unlock();
+	SDL_RenderPresent(_renderer);
+	_mtx.unlock();
 }
 
 #include <unistd.h>

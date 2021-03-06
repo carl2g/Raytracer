@@ -17,12 +17,12 @@ public:
 	void setBufferPixel(int pos, const Color &c);
 	void updateWin();
 private:
-	SDL_Event 		_event;
-	SDL_Window 		*_window;
-	bool 			_quitWin;
-	SDL_Renderer 		*_renderer;
+	SDL_Event 				_event;
+	SDL_Window 				*_window;
+	bool 					_quitWin;
+	SDL_Renderer 			*_renderer;
 	std::pair<int, int> 	_winSize;
-	std::mutex 		_mtx;
+	std::mutex 				_mtx;
 };
 
 #endif /* _SDL_WIN_HPP */
