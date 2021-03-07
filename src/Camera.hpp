@@ -13,10 +13,12 @@ public:
 	Camera(const Vec3<double> &pos, PairInt screenSize);
 	~Camera() = default;
 	const Vec3<double> &getVecAtPixel(int pixel);
-	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) {}
+	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) { return (-1.0); }
 	const Vec3<double> getRay(const Vec3<double> &dest);
-private:
+	const Vec3<double> &getPos() { return (_pos); }
 	std::vector<std::unique_ptr<Vec3<double>>> _vision;
+private:
+	Vec3<double> _pos;
 };
 
 #endif /* _CAMERA_HPP */

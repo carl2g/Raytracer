@@ -8,19 +8,19 @@
 #include "Triangle.hpp"
 #include <math.h>
 
-Triangle::Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<double> &c)
-	:  _a(a), _b(b), _c(c) {}
+Triangle::Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<double> &c, const Color &color)
+	: Obj(color), _a(a), _b(b), _c(c) {}
 
 double Triangle::intersect(const Vec3<double> &origin, const Vec3<double> &rd) {
 	Vec3<double> norm_vec = (_b - _a).cross(_c - _a);
-	double dot1 = norm_vec.dot(origin);
+	double dot1 = norm_vec.dot(origin - _c);
 	double dot3 = norm_vec.dot(rd);
 
-	if (dot3 == 0.0 || dot1 == 0.0) {
+	if (dot3 == 0.0) {
 		return (-1);
 	}
 
-	double t = -dot1 / dot3;	
+	double t = -dot1 / dot3;
 
 	Vec3<double> g	= origin + rd * t;
 

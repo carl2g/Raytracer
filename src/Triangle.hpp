@@ -3,9 +3,9 @@
 
 # include "Obj.hpp"
 
-class Triangle {
+class Triangle : public Obj {
 public:
-	Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<double> &c);
+	Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<double> &c, const Color &color);
 	~Triangle() = default;
 	double intersect(const Vec3<double> &origin, const Vec3<double> &rd);
 private:

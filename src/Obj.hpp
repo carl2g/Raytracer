@@ -21,14 +21,12 @@ private:
 
 class Obj {
 public:
-	Obj(const Vec3<double> &pos, const Color &c) : _pos(pos), _color(c) {}
+	Obj(const Color &c) : _color(c) {}
 	virtual ~Obj() = default;
-	const Vec3<double> &getPos() { return (_pos); }
-	virtual double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) = 0;
+	virtual double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) { return (-1.0); };
 	const Color &getColor() const { return (_color); }
 protected:
 	Color _color;
-	Vec3<double> _pos;
 };
 
 #endif /* _OBJ_HPP */

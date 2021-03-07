@@ -7,7 +7,7 @@
 
 #include "Camera.hpp"
 
-Camera::Camera(const Vec3<double> &pos, PairInt screenSize) : Obj(pos, {0, 0, 0, 0})
+Camera::Camera(const Vec3<double> &pos, PairInt screenSize) : Obj({0, 0, 0, 0}), _pos(pos)
 {
 	int axis_x = screenSize.first / 2;
 	int axis_y = screenSize.second / 2;

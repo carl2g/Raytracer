@@ -9,12 +9,12 @@
 
 double Plane::intersect(const Vec3<double> &origin, const Vec3<double> &rd)
 {
-	double dot1 = this->_norm_vec.dot(origin);
-	double dot3 = this->_norm_vec.dot(rd);
+	double dot1 = this->_norm_vec.dot(origin - this->_pos);
+	double dot2 = this->_norm_vec.dot(rd);
 
-	if (dot3 == 0.0 || dot1 == 0.0) {
+	if (dot2 == 0.0 || dot1 == 0.0) {
 		return (-1);
 	}
 
-	return -dot1 / dot3;
+	return (-dot1) / dot2;
 }
