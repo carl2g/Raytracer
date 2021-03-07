@@ -3,6 +3,7 @@
 
 #include "Obj.hpp"
 #include "Camera.hpp"
+#include "Light.hpp"
 #include <vector>
 #include <memory>
 
@@ -11,7 +12,9 @@ public:
 	ObjectManager() {};
 	~ObjectManager() = default;
 	void addObject(std::unique_ptr<Obj> to_add);
-	std::tuple<std::shared_ptr<Obj>, double> getClosestIntersection(Camera &cam, int pixel);
+	std::tuple<std::shared_ptr<Obj>, double> getClosestIntersection(const Vec3<double> &origin, const Vec3<double> &rd);
+	double getLightCoef(Vec3<double> &origin, Obj &obj, Light &l);
+
 // private:
 	std::vector<std::shared_ptr<Obj>> _manager;
 };

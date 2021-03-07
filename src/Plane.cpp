@@ -18,3 +18,11 @@ double Plane::intersect(const Vec3<double> &origin, const Vec3<double> &rd)
 
 	return (-dot1) / dot2;
 }
+
+std::unique_ptr<Vec3<double>> Plane::getNormalVect(const Vec3<double> &origin) { 
+	return std::unique_ptr<Vec3<double>> (
+		new Vec3<double>(
+			this->_norm_vec.normalized()
+		)
+	);
+}

@@ -31,3 +31,11 @@ double Sphere::intersect(const Vec3<double> &origin, const Vec3<double> &rd)
 
 	return ((x1 <= x2 ? x1 : x2));
 }
+
+std::unique_ptr<Vec3<double>> Sphere::getNormalVect(const Vec3<double> &origin) { 
+	return std::unique_ptr<Vec3<double>> (
+		new Vec3<double>(
+			(origin - this->_pos).normalized()
+		)
+	);
+}

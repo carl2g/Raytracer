@@ -11,7 +11,7 @@ SRCS		=	src/main.cpp 		\
 			src/Plane.cpp 		\
 			src/Triangle.cpp	\
 			src/ObjectManager.cpp 	\
-			src/ObjParser.cpp
+			src/ObjParser.cpp 	\
 
 CFLAGS 		= 	-lSDL2 -lpthread -lm
 
