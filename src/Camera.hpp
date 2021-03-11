@@ -15,7 +15,10 @@ public:
 	const Vec3<double> &getVecAtPixel(int pixel);
 	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) { return (-1.0); }
 	const Vec3<double> getRay(const Vec3<double> &dest);
-	const Vec3<double> &getPos() { return (_pos); }
+	const Vec3<double> &getPos() const { return (_pos); }
+	void rotate_horizontal(const double angle);
+	void rotate_vertical(const double angle);
+	std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin) const  { return (std::make_unique<Vec3<double>>(0.0, 0.0, 0.0)); };
 	std::vector<std::unique_ptr<Vec3<double>>> _vision;
 private:
 	Vec3<double> _pos;

@@ -12,11 +12,11 @@ public:
 	ObjectManager() {};
 	~ObjectManager() = default;
 	void addObject(std::unique_ptr<Obj> to_add);
-	std::tuple<std::shared_ptr<Obj>, double> getClosestIntersection(const Vec3<double> &origin, const Vec3<double> &rd);
-	double getLightCoef(Vec3<double> &origin, Obj &obj, Light &l);
+	std::tuple<Obj const *, double> getClosestIntersection(const Vec3<double> &origin, const Vec3<double> &rd);
+	double getLightCoef(const Vec3<double> &origin, const Obj &obj, Light &l);
 
 // private:
-	std::vector<std::shared_ptr<Obj>> _manager;
+	std::vector<std::unique_ptr<Obj>> _manager;
 };
 
 #endif /* _OBJ_Manager_HPP */

@@ -8,7 +8,7 @@
 #include "SDLWin.hpp"
 
 SDLWin::SDLWin(const std::string &winName, const std::pair<int, int> &winSize)
-	: _event({0}), _quitWin(false), _winSize(winSize)
+	: _event({0}), _quitWin(false), _update(true), _winSize(winSize)
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		SDL_Quit();
@@ -44,16 +44,30 @@ void SDLWin::updateWin()
 	_mtx.unlock();
 }
 
-#include <unistd.h>
 
-void SDLWin::launchWin()
+void SDLWin::windowBlock(Camera &cam)
 {
-	while(!_quitWin) {
-		SDL_PollEvent(&_event);
-		// SDL_WaitEvent(&_event);
-		if(_event.window.event == SDL_WINDOWEVENT_CLOSE)
-			_quitWin = true;
+	SDL_PollEvent(&_event);
+
+	if (_event.type == SDL_KEYDOWN) { 
+		switch (_event.key.keysym.sym) {
+			case SDLK_UP:
+				cam.rotate_vertical(0.01);
+				break;
+			case SDLK_DOWN:
+				cam.rotate_vertical(-0.01);
+				break;
+			case SDLK_LEFT:
+				cam.rotate_horizontal(0.01);
+				break;
+			case SDLK_RIGHT:
+				cam.rotate_horizontal(-0.01);
+				break;
+		}
+		this->_update = true;
 	}
+	if(_event.window.event == SDL_WINDOWEVENT_CLOSE)
+		_quitWin = true;
 }
 
 SDLWin::~SDLWin()

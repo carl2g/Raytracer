@@ -19,6 +19,30 @@ Camera::Camera(const Vec3<double> &pos, PairInt screenSize) : Obj({0, 0, 0, 0}),
 	}
 }
 
+void Camera::rotate_horizontal(const double angle) {
+	for (auto &v : _vision) {
+		if (angle >= 0.0) {
+			v->_x = v->_x * cos(angle) +  v->_y * sin(angle);
+			v->_y = v->_x * -sin(angle) + v->_y * cos(angle);
+		} else {
+			v->_x = v->_x * cos(-angle) + v->_y * -sin(-angle);
+			v->_y = v->_x * sin(-angle) + v->_y * cos(-angle);
+		}
+	}
+}
+
+void Camera::rotate_vertical(const double angle) {
+	for (auto &v : _vision) {
+		if (angle >= 0.0) {
+			v->_x = v->_x * cos(angle) + v->_z * -sin(angle);
+			v->_z = v->_x * sin(angle) + v->_z * cos(angle);
+		} else {
+			v->_x = v->_x * cos(-angle) + v->_z * sin(-angle);
+			v->_z = v->_x * -sin(-angle) + v->_z * cos(-angle);
+		}
+	}
+}
+
 const Vec3<double> Camera::getRay(const Vec3<double> &dest)
 {
 	return {_pos._x + dest._x, _pos._y + dest._y, _pos._z + dest._z};

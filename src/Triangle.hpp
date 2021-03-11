@@ -8,7 +8,7 @@ public:
 	Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<double> &c, const Color &color);
 	~Triangle() = default;
 	double intersect(const Vec3<double> &origin, const Vec3<double> &rd);
-	std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin);
+	std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin) const;
 
 private:
 	Vec3<double> _a;

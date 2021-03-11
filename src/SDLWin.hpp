@@ -7,19 +7,22 @@
 # include <iostream>
 # include <mutex>
 # include "Obj.hpp"
+#include <unistd.h>
+#include "Camera.hpp"
 
 class SDLWin {
 public:
 	SDLWin(const std::string &winName, const std::pair<int, int> &winSize);
 	~SDLWin();
-	void launchWin();
+	void windowBlock(Camera &cam);
 	SDL_Window *getSDLWin() const;
 	void setBufferPixel(int pos, const Color &c);
 	void updateWin();
+	bool _update;
+	bool _quitWin;
 private:
 	SDL_Event 				_event;
 	SDL_Window 				*_window;
-	bool 					_quitWin;
 	SDL_Renderer 			*_renderer;
 	std::pair<int, int> 	_winSize;
 	std::mutex 				_mtx;

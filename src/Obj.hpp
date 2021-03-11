@@ -25,7 +25,7 @@ public:
 	Obj(const Color &c) : _color(c) {}
 	virtual ~Obj() = default;
 	virtual double intersect(const Vec3<double> &origin, const Vec3<double> &vdir) { return (-1.0); }
-	virtual std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin) { return (std::make_unique<Vec3<double>>(0.0, 0.0, 0.0)); }
+	virtual std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin) const = 0;
 	const Color &getColor() const { return (_color); }
 protected:
 	Color _color;

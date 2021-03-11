@@ -13,7 +13,7 @@ class ObjParser {
 public:
 	ObjParser(const std::string &file) : _file(file) {};
 	~ObjParser() = default;
-	std::vector<std::shared_ptr<Obj>> get_objects();
+	std::vector<std::unique_ptr<Obj>> get_objects();
 private:
 	std::string _file;
 };

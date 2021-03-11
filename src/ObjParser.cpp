@@ -1,9 +1,9 @@
 #include "ObjParser.hpp"
 
-std::vector<std::shared_ptr<Obj>> ObjParser::get_objects() {
+std::vector<std::unique_ptr<Obj>> ObjParser::get_objects() {
 
 	std::ifstream infile(this->_file);
-	std::vector<std::shared_ptr<Obj>> objs;
+	std::vector<std::unique_ptr<Obj>> objs;
 	std::vector<Vec3<double>> vec;
 	
 	double a, b, c = 0.0;
@@ -38,9 +38,9 @@ std::vector<std::shared_ptr<Obj>> ObjParser::get_objects() {
 			int i3 = std::stoi(info3.substr(0, s.find('/')));
 
 			objs.push_back(
-				std::shared_ptr<Triangle>(new Triangle(vec[i1-1], vec[i2-1], vec[i3-1], {255, 180, 60, 185}))
+				std::unique_ptr<Triangle>(new Triangle(vec[i1-1], vec[i2-1], vec[i3-1], {255, 180, 60, 185}))
 			);
 		}
 	}
-	return (objs);
+	return (std::move(objs));
 }

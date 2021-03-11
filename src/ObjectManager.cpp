@@ -4,30 +4,40 @@ void ObjectManager::addObject(std::unique_ptr<Obj> to_add) {
 	_manager.push_back(std::move(to_add));
 }
 
-std::tuple<std::shared_ptr<Obj>, double> ObjectManager::getClosestIntersection(const Vec3<double> &origin, const Vec3<double> &rd) {
+std::tuple<Obj const *, double> ObjectManager::getClosestIntersection(const Vec3<double> &origin, const Vec3<double> &rd) {
 	double t = -1.0;
-	auto o = std::shared_ptr<Obj>(nullptr);
+	int f = 0;
+	
 	for (int i = 0; i < _manager.size(); ++i) {
-		auto a = _manager[i];
-		double tmp = a->intersect(origin, rd);
+		auto &&a = _manager[i];
+		auto &&tmp = a->intersect(origin, rd);
 		if ((tmp >= 0.0 && t > tmp) || (t < 0.0 && tmp >= 0.0)) {
 			t = tmp;
-			o = a;
+			f = i;
 		}
 	}
-	return(std::make_tuple(o, t));
+	return(std::make_tuple(_manager[f].get(), t));
 };
 
-double ObjectManager::getLightCoef(Vec3<double> &origin, Obj &obj, Light &l) {
-	auto rd = l.getPos() - origin;
+double ObjectManager::getLightCoef(const Vec3<double> &origin, const Obj &obj, Light &l) {
+	auto &&rd = l.getPos() - origin;
 	auto &&norm = obj.getNormalVect(origin);
-	auto angle = norm->getAngle(rd);
-	auto tup = this->getClosestIntersection(origin + (*norm) * 0.00001, rd);
-	auto &t = std::get<1>(tup);
 
-	if (t >= 0) {
-		return (0.5);
+	auto &&tup = this->getClosestIntersection(origin + *norm * 0.0001, rd);
+	auto &&angle = norm->getAngle(rd);
+	auto &&t = std::get<1>(tup);
+
+	auto &&dist_to_light = rd.norm();
+
+	auto &&difuse = (1.0 - (1.75 * angle / M_PI));
+	auto &&intensity = l.getIntensity();
+	auto &&dist = intensity / (intensity + dist_to_light);
+	
+	if (t >= 0 && dist_to_light > (rd * t).norm()) {
+		return (0.125 * dist);
 	}
+	
+	auto &&coef = difuse * dist; 
 
-	return (1.0 - (angle / M_PI ));
+	return (coef);
 };

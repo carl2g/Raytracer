@@ -12,7 +12,7 @@ Triangle::Triangle(const Vec3<double> &a, const Vec3<double> &b, const Vec3<doub
 	: Obj(color), _a(a), _b(b), _c(c) {}
 
 double Triangle::intersect(const Vec3<double> &origin, const Vec3<double> &rd) {
-	auto norm_vec = (_b - _a).cross(_c - _a);
+	auto &&norm_vec = (_b - _a).cross(_c - _a);
 	double dot1 = norm_vec.dot(origin - _c);
 	double dot3 = norm_vec.dot(rd);
 
@@ -22,27 +22,37 @@ double Triangle::intersect(const Vec3<double> &origin, const Vec3<double> &rd) {
 
 	double t = -dot1 / dot3;
 
-	auto g	= origin + rd * t;
+	auto &&g = origin + rd * t;
 
 	double bac = (_b-_a).getAngle(_c-_a);
 	double bag = (_b-_a).getAngle(g-_a);
+	
+	if (bac < bag) {
+		return (-1);
+	}
+
 
 	double acb = (_a-_c).getAngle(_b-_c);
 	double acg = (_a-_c).getAngle(g-_c);
 
+	if (acb < acg) {
+		return (-1);
+	}
+
 	double cba = (_c-_b).getAngle(_a-_b);
 	double cbg = (_c-_b).getAngle(g-_b);
 
-	if (bac >= bag && acb >= acg && cba >= cbg) {
-		return (t);
+	if (cba < cbg) {
+		return (-1);
 	}
-	return (-1);
+
+	return (t);
 }
 
-std::unique_ptr<Vec3<double>> Triangle::getNormalVect(const Vec3<double> &origin) { 
+std::unique_ptr<Vec3<double>> Triangle::getNormalVect(const Vec3<double> &origin) const { 
 	return std::unique_ptr<Vec3<double>> (
 		new Vec3<double>(
-			(origin - this->_a).cross(origin - _a).normalized()
+			(origin - _a).cross(origin - _b).normalized()
 		)
 	);
 }
