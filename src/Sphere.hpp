@@ -5,7 +5,8 @@
 
 class Sphere : public Obj {
 public:
-	Sphere(const Vec3<double> &pos, int radius, const Color &c) : Obj(c), _pos(pos), _rad(radius) {}
+	template<typename ... Args>
+	Sphere(const Vec3<double> &pos, int radius, Args &&... args) : Obj(std::forward<Args>(args) ...), _pos(pos), _rad(radius) {}
 	~Sphere() = default;
 	double intersect(const Vec3<double> &origin, const Vec3<double> &vdir);
 	std::unique_ptr<Vec3<double>> getNormalVect(const Vec3<double> &origin) const;
